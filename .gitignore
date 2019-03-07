@@ -5,3 +5,4 @@ _site
 .vscode
 /update.bat
 .DS_Store
+yarn-error.log
