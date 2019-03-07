@@ -1,4 +1,165 @@
+$brandpink: #fc003d;
+$brandblue: #000d28;
+
 body {
     background-color: white;
     font-family: Helvetica, 'Segoe UI', Verdana, sans-serif;
+    color: rgb(10, 10, 10);
+    margin: 0;
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+.menu {
+    background-color: $brandblue;
+    color: white;
+    height: 40px;
+    padding: 10px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto;
+    font-weight: bolder;
+
+    a {
+        color: white;
+
+        &:hover {
+            color: $brandpink;
+        }
+    }
+
+    .left {
+        justify-self: start;
+    }
+
+    .right {
+        justify-self: end;
+        display: grid;
+        grid-template-columns: repeat(10, auto);
+        grid-gap: 10px;
+
+        .spacer {
+            color: rgb(197, 197, 197);
+        }
+    }
+}
+
+.hero {
+    background-image: url("/public/images/Background_Web.jpg");
+    background-color: $brandblue;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: grid;
+    color: white;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    grid-row-gap: 30px;
+
+    .brand {
+        display: grid;
+        justify-content: center;
+        grid-template-rows: auto auto auto;
+
+        img {
+            height: 100px;
+            justify-self: center;
+        }
+    }
+
+    .eventbananas {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: auto auto;
+        width: 100%;
+
+        .event {
+            display: grid;
+            grid-template-rows: auto auto auto auto;
+            grid-row-gap: 10px;
+            justify-items: center;
+
+            .location {
+                font-size: 1.6rem;
+                color: $brandpink;
+                font-weight: bolder;
+            }
+
+            .countdown {}
+        }
+    }
+
+    .mailingList {
+        font-size: 0.9rem;
+
+        .input-group {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input {
+            border: 0;
+            padding: 5px;
+
+            &[type=submit] {
+                background: $brandblue;
+                color: white;
+
+                &:hover {
+                    background: $brandpink;
+                }
+            }
+        }
+
+        a {
+            color: $brandpink;
+        }
+    }
+}
+
+.content {
+    padding: 20px;
+    font-size: 0.9rem;
+
+    .highlight {
+        font-weight: bold;
+        color: $brandpink;
+    }
+}
+
+.footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    font-size: 0.5rem;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+a.button {
+    height: 30px;
+    background-color: $brandpink;
+    border-radius: 10px;
+    padding: 5px;
+    color: white;
+    width: 200px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.seperator {
+    width: 100%;
+    height: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom-color: $brandblue;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
 }
