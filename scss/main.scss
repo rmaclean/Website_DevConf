@@ -1,5 +1,19 @@
 $brandpink: #fc003d;
 $brandblue: #000d28;
+$mobileWidth: 700px;
+
+a {
+    color: $brandpink;
+
+    &:hover {
+        color: lighten($brandpink, 10);
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
 
 body {
     background-color: white;
@@ -7,6 +21,12 @@ body {
     color: rgb(10, 10, 10);
     margin: 0;
     font-size: 1rem;
+    margin-bottom: 30px;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-font-smoothing: antialiased !important;
+    text-rendering: optimizelegibility !important;
+    letter-spacing: 0.03rem;
 }
 
 a {
@@ -36,9 +56,13 @@ a {
     }
 
     .right {
+        @media (max-width: $mobileWidth) {
+            visibility: hidden;    
+        }
+
         justify-self: end;
         display: grid;
-        grid-template-columns: repeat(10, auto);
+        grid-auto-flow: column;
         grid-gap: 10px;
 
         .spacer {
@@ -81,7 +105,6 @@ a {
 
         .event {
             display: grid;
-            grid-template-rows: auto auto auto auto;
             grid-row-gap: 10px;
             justify-items: center;
 
@@ -119,6 +142,10 @@ a {
 
         a {
             color: $brandpink;
+
+            &:hover {
+                color: lighten($brandpink, 10);
+            }
         }
     }
 }
@@ -126,19 +153,140 @@ a {
 .content {
     padding: 20px;
     font-size: 0.9rem;
+    background-color: white;
+    line-height: 180%;
 
     .highlight {
         font-weight: bold;
         color: $brandpink;
     }
+
+    .seperator {
+        width: 100%;
+        height: 3px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom-color: $brandblue;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    }
+
+    .sectionTitle {
+        font-weight: bold;
+        font-size: 1.4rem;
+        color: $brandpink;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        letter-spacing: -0.02rem;
+    }
+
+    .subSectionTitle {
+        @extend .sectionTitle;
+        color: $brandblue;
+        font-size: 1.2rem;
+    }
+
+    .media {
+        display: grid;
+
+        .mediaArticles {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 200px;
+            overflow-x: auto;
+            grid-column-gap: 10px;
+        }
+    }
+
+    .sponsors {
+        display: grid;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+        grid-template-columns: repeat(auto-fit, 150px);
+    }
+
+    
+    @mixin card($dimension) {
+        border: 1px solid lighten($brandblue, 50);
+        border-radius: 5px;
+        height: $dimension;   
+        width: $dimension;  
+        font-size: 0.7rem;
+        font-variant-caps: all-small-caps;
+        font-weight: bold;
+        display: grid;
+        align-items: end;
+        background-color: $brandblue;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+
+        .title {
+            padding: 5px;
+            width: ($dimension - 9px);
+            margin-bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.705);
+            color: white;
+        }
+    }
+
+    .card {
+        @include card(200px);
+    }
+
+    .smallerCard {
+        @include card(150px);
+    }
+
+    .map {
+        background-image: url('/public/images/map.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        
+        .overlaytext {
+            background-color: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            
+        }
+    }
+
+    .contactus {
+        display: grid;
+
+        .contactDetails {
+            align-self: stretch;
+            display: grid;
+            align-items: center;
+            grid-auto-flow: column;
+
+            a {
+                color: $brandblue;
+
+                &:hover {
+                    color: lighten($brandblue, 10);
+                }
+            }
+        }
+    }
 }
 
 .footer {
+    @media (max-width: $mobileWidth) {
+        visibility: hidden;    
+    }
+    
+    background-color: $brandblue;
+    color: white;
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     font-size: 0.5rem;
     text-align: center;
+    padding-top: 5px;
     padding-bottom: 10px;
 }
 
@@ -152,14 +300,8 @@ a.button {
     display: grid;
     align-items: center;
     justify-items: center;
-}
 
-.seperator {
-    width: 100%;
-    height: 3px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-bottom-color: $brandblue;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+    &:hover {
+        background-color: lighten($brandpink, 10);
+    }
 }

@@ -1,9 +1,24 @@
+a {
+  color: #fc003d; }
+  a:hover {
+    color: #ff3062; }
+
+html {
+  position: relative;
+  min-height: 100%; }
+
 body {
   background-color: white;
   font-family: Helvetica, 'Segoe UI', Verdana, sans-serif;
   color: #0a0a0a;
   margin: 0;
-  font-size: 1rem; }
+  font-size: 1rem;
+  margin-bottom: 30px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-font-smoothing: antialiased !important;
+  text-rendering: optimizelegibility !important;
+  letter-spacing: 0.03rem; }
 
 a {
   text-decoration: none; }
@@ -26,8 +41,11 @@ a {
   .menu .right {
     justify-self: end;
     display: grid;
-    grid-template-columns: repeat(10, auto);
+    grid-auto-flow: column;
     grid-gap: 10px; }
+    @media (max-width: 700px) {
+      .menu .right {
+        visibility: hidden; } }
     .menu .right .spacer {
       color: #c5c5c5; }
 
@@ -59,7 +77,6 @@ a {
     width: 100%; }
     .hero .eventbananas .event {
       display: grid;
-      grid-template-rows: auto auto auto auto;
       grid-row-gap: 10px;
       justify-items: center; }
       .hero .eventbananas .event .location {
@@ -81,21 +98,124 @@ a {
           background: #fc003d; }
     .hero .mailingList a {
       color: #fc003d; }
+      .hero .mailingList a:hover {
+        color: #ff3062; }
 
 .content {
   padding: 20px;
-  font-size: 0.9rem; }
+  font-size: 0.9rem;
+  background-color: white;
+  line-height: 180%; }
   .content .highlight {
     font-weight: bold;
     color: #fc003d; }
+  .content .seperator {
+    width: 100%;
+    height: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom-color: #000d28;
+    border-bottom-style: solid;
+    border-bottom-width: 1px; }
+  .content .sectionTitle, .content .subSectionTitle {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #fc003d;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    letter-spacing: -0.02rem; }
+  .content .subSectionTitle {
+    color: #000d28;
+    font-size: 1.2rem; }
+  .content .media {
+    display: grid; }
+    .content .media .mediaArticles {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 200px;
+      overflow-x: auto;
+      grid-column-gap: 10px; }
+  .content .sponsors {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-columns: repeat(auto-fit, 150px); }
+  .content .card {
+    border: 1px solid #286eff;
+    border-radius: 5px;
+    height: 200px;
+    width: 200px;
+    font-size: 0.7rem;
+    font-variant-caps: all-small-caps;
+    font-weight: bold;
+    display: grid;
+    align-items: end;
+    background-color: #000d28;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; }
+    .content .card .title {
+      padding: 5px;
+      width: 191px;
+      margin-bottom: 10px;
+      background-color: rgba(0, 0, 0, 0.705);
+      color: white; }
+  .content .smallerCard {
+    border: 1px solid #286eff;
+    border-radius: 5px;
+    height: 150px;
+    width: 150px;
+    font-size: 0.7rem;
+    font-variant-caps: all-small-caps;
+    font-weight: bold;
+    display: grid;
+    align-items: end;
+    background-color: #000d28;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; }
+    .content .smallerCard .title {
+      padding: 5px;
+      width: 141px;
+      margin-bottom: 10px;
+      background-color: rgba(0, 0, 0, 0.705);
+      color: white; }
+  .content .map {
+    background-image: url("/public/images/map.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; }
+    .content .map .overlaytext {
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      padding: 10px; }
+  .content .contactus {
+    display: grid; }
+    .content .contactus .contactDetails {
+      align-self: stretch;
+      display: grid;
+      align-items: center;
+      grid-auto-flow: column; }
+      .content .contactus .contactDetails a {
+        color: #000d28; }
+        .content .contactus .contactDetails a:hover {
+          color: #001e5b; }
 
 .footer {
+  background-color: #000d28;
+  color: white;
   width: 100%;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   font-size: 0.5rem;
   text-align: center;
+  padding-top: 5px;
   padding-bottom: 10px; }
+  @media (max-width: 700px) {
+    .footer {
+      visibility: hidden; } }
 
 a.button {
   height: 30px;
@@ -107,12 +227,5 @@ a.button {
   display: grid;
   align-items: center;
   justify-items: center; }
-
-.seperator {
-  width: 100%;
-  height: 3px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-bottom-color: #000d28;
-  border-bottom-style: solid;
-  border-bottom-width: 1px; }
+  a.button:hover {
+    background-color: #ff3062; }

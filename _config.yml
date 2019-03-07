@@ -13,6 +13,10 @@ exclude:
     - gulpfile.js
     - update.bat
     - bundle
+    - scss
+    - googled96e0dc1bdd986c8.html
+    - README.md
+    - yarn.lock
     
 defaults:
     -

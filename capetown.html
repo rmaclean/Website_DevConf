@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<div class="content">
+    <h1 class="highlight">DevConf Cape Town</h1>
+    <div class="subSectionTitle">26 March 2020 | 4 Tracks | 30 Speakers </div>
+    {% if site.data.config.tickets.cpt_sell %}
+    <a class="button" href="{{ site.data.config.tickets.cpt }}">Buy tickets</a>
+    {% else %}
+    <a class="button" href="{{ site.data.config.tickets.cpt_wait }}">Waiting List</a>
+    {% endif %}
+    <div class="sectionTitle">Agenda</div>
+    <div class="seperator">&nbsp;</div>
+    <div class="sectionTitle">Sponsors</div>
+    {% assign sponsorsByLevel = (site.data.2020.cptsponsors | sort: 'level' | group_by: 'level') %}
+
+    {% for level in sponsorsByLevel %}
+    <div class="sponsorLevel">
+        {% assign levelInfo = site.data.config.sponsorLevels | where:"level", level.name | first %}
+        <div class="subSectionTitle">{{ levelInfo.title }}</div>
+        <div class="sponsors">
+            {% for sponsor in level.items %}
+            <a class="smallerCard" href="{{ sponsor.link }}" style="background-image: url('/public/images/sponsors/{{ sponsor.logo }}');"
+                target="_blank" rel="noopener noreferrer">
+                <div class="title">{{ sponsor.sponsor }}</div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    <div class="seperator">&nbsp;</div>
+    <div class="sectionTitle">Location</div>
+    <div class="map">
+        <div class="overlaytext">
+            <p>DevConf will be held at
+                <a href="http://riverclub.co.za/" target="_blank" rel="noopener noreferrer">The River Club</a>, in Cape
+                Town, South Africa.</p>
+            <p>
+                <a href="https://www.google.co.za/maps/place/The+River+Club/@-33.934415,18.4747436,15z/data=!4m2!3m1!1s0x0:0x6dbc9237f397ba3e?sa=X&ved=0ahUKEwiu1f211frVAhUEIMAKHdTlCrMQ_BIIdjAN"
+                    target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+            </p>
+        </div>
+    </div>
+</div>

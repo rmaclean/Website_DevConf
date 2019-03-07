@@ -8,15 +8,16 @@ layout: default
         <div class="slogan">solving today and tomorrow's software development challenges</div>
     </div>
     <div class="eventbananas">
+        {% for event in site.data.config.events %}
         <div class="event">
-            <div class="location">Cape Town</div>
-            <div class="date">March 2020</div>
+            <div class="location">{{ event.location }}</div>
+            <div class="date">{{ event.date }}</div>
             <div class="countdown">365 days to go</div>
-            <a href="/capetown" class="button" role="button"><div>Learn More</div></a>
+            <a href="{{ event.info }}" class="button" role="button">
+                <div>Learn More</div>
+            </a>
         </div>
-        <div>
-            Johannesburg
-        </div>
+        {% endfor%}
     </div>
     <div class="mailingList">
         <form accept-charset="UTF-8" action="https://madmimi.com/signups/subscribe/176015" id="mad_mimi_signup_form"
@@ -72,13 +73,27 @@ layout: default
     <div class="seperator">&nbsp;</div>
 
     <div class="media">
-
+        <div class="sectionTitle">DevConf in the press</div>
+        <div class="mediaArticles">
+            {% for media in site.data.media %}
+            <a href="{{ media.link }}" class="card" style="background-image: url('/public/images/media/{{ media.logo }}');" target="_blank" rel="noopener noreferrer">
+                <div class="title">{{ media.title }}</div>
+            </a>
+            {% endfor %}
+        </div>
     </div>
 
     <div class="seperator">&nbsp;</div>
 
     <div class="contactus" id="contacts">
-
+        <div class="sectionTitle">Contact Us</div>
+        <div class="contactDetails">
+            <div>Email us:<br /><a href='mailto:info@devconf.co.za'>info@devconf.co.za</a></div>
+            <div>Facebook:<br /><a href='https://www.facebook.com/devconfza' target='_blank' rel="noopener noreferrer">@devconfza</a></div>
+            <div>Twitter:<br /><a href='https://twitter.com/devconfza' target='_blank' rel="noopener noreferrer">@devconfza</a>
+                or <a href='https://twitter.com/search?q=%23devconf' target='_blank' rel="noopener noreferrer">#devconf</a></div>
+            <div>Instagram:<br /><a href='https://www.instagram.com/devconfza/' target='_blank' rel="noopener noreferrer">@devconfza</a></div>
+        </div>
     </div>
 </div>
 

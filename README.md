@@ -16,12 +16,12 @@ yarn start
 ```
 
 # compile
-
+  
 To compile it is
 ```
 jekyll build
 ```
-
+  
 You can swop `build` for `serve` to run the web server which does incremental updates as you change files.
 
 ---
