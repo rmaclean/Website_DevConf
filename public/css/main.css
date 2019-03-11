@@ -309,3 +309,8 @@ a.button {
   justify-items: center; }
   a.button:hover {
     background-color: #ff3062; }
+
+a.smalllink {
+  font-size: 0.7rem;
+  color: #000d28;
+  text-decoration: underline; }

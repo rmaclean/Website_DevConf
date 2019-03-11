@@ -3,7 +3,7 @@ tickets:
   cpt: https://www.google.com
   jhb: https://www.google.com
   jhb_wait: https://www.google.com
-  cpt_sell: true
+  cpt_sell: false
   jhb_sell: true
 
 events:

@@ -383,3 +383,9 @@ a.button {
         background-color: lighten($brandpink, 10);
     }
 }
+
+a.smalllink {
+    font-size: 0.7rem;
+    color: $brandblue;
+    text-decoration: underline;
+}

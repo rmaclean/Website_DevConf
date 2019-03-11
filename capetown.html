@@ -5,9 +5,10 @@ layout: default
     <h1 class="highlight">DevConf Cape Town</h1>
     <div class="subSectionTitle">26 March 2020 | 4 Tracks | 30 Speakers </div>
     {% if site.data.config.tickets.cpt_sell %}
-    <a class="button" href="{{ site.data.config.tickets.cpt }}">Buy tickets</a>
+    <a class="button" target="_blank" rel="noopener noreferrer" href="{{ site.data.config.tickets.cpt }}">Buy tickets</a>
     {% else %}
-    <a class="button" href="{{ site.data.config.tickets.cpt_wait }}">Waiting List</a>
+    <a class="button" target="_blank" rel="noopener noreferrer" href="{{ site.data.config.tickets.cpt_wait }}">Waiting List</a>
+    <a class="smalllink" target="_blank" rel="noopener noreferrer" href="{{ site.data.config.tickets.cpt_wait }}">Have a ticket already and need to update details OR have a access code?</a>
     {% endif %}
     <div class="sectionTitle">Agenda</div>
     <div class="agenda">
