@@ -1,3 +1,4 @@
+@import 'choose-contrast-color.scss';
 $brandpink: #fc003d;
 $brandblue: #000d28;
 $mobileWidth: 700px;
@@ -57,7 +58,7 @@ a {
 
     .right {
         @media (max-width: $mobileWidth) {
-            visibility: hidden;    
+            visibility: hidden;
         }
 
         justify-self: end;
@@ -205,12 +206,12 @@ a {
         grid-template-columns: repeat(auto-fit, 150px);
     }
 
-    
+
     @mixin card($dimension) {
         border: 1px solid lighten($brandblue, 50);
         border-radius: 5px;
-        height: $dimension;   
-        width: $dimension;  
+        height: $dimension;
+        width: $dimension;
         font-size: 0.7rem;
         font-variant-caps: all-small-caps;
         font-weight: bold;
@@ -243,14 +244,14 @@ a {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
-        
+
         .overlaytext {
             background-color: rgba(0, 0, 0, 0.8);
             width: 100%;
             color: white;
             font-weight: bold;
             padding: 10px;
-            
+
         }
     }
 
@@ -274,11 +275,88 @@ a {
     }
 }
 
+.agenda {
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: stretch;
+    grid-row-gap: 5px;
+
+    .agendaTimeslot {
+        display: grid;
+        justify-items: stretch;
+
+        @mixin eventType($coreColour) {
+            background-color: $coreColour;
+            border-style: solid;
+            border-width: 1px;
+            border-color: lighten($coreColour, 25);
+            color: choose-contrast-color($coreColour);
+            text-align: center;
+            font-weight: bolder;
+        }
+
+        >.agendateriaryEvent {
+            @include eventType(darken($brandpink, 20));
+        }
+
+        >.agendasecondaryEvent {
+            @include eventType(darken($brandpink, 10));
+        }
+
+        >.agendasession {
+            @include eventType($brandpink);
+        }
+
+        >.agendabreak {
+            @include eventType($brandblue);
+        }
+
+        .talks {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-row-end: 5px;
+            grid-column-gap: 5px;
+
+            .talkSlotCard {
+                height: 300px;
+                border-style: solid;
+                border-width: 1px;
+                border-color: lighten($brandblue, 25);
+                display: grid;
+                grid-template-rows: min-content;
+                align-content: end;
+
+                .talkLabel {
+                    color: rgb(158, 158, 158);
+                    background-color: rgba(0, 0, 0, 0.692);
+                    width: 100%;
+                    margin-bottom: 10px;
+
+                    .talkLabelText {
+                        padding: 5px;
+
+                        .talkTitle {
+                            color: white;
+                            font-weight: bold;
+                        }
+
+                        .talkSpeaker {
+                            color: white;
+                            font-weight: bolder;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .footer {
     @media (max-width: $mobileWidth) {
-        visibility: hidden;    
+        visibility: hidden;
     }
-    
+
     background-color: $brandblue;
     color: white;
     width: 100%;

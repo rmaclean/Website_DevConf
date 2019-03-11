@@ -10,6 +10,41 @@ layout: default
     <a class="button" href="{{ site.data.config.tickets.cpt_wait }}">Waiting List</a>
     {% endif %}
     <div class="sectionTitle">Agenda</div>
+    <div class="agenda">
+        {% assign agendaSpeakers = (site.data.2020.cptspeakers | sort: 'time' | group_by: 'time') %}
+        {% for agendaslot in site.data.2020.cptagenda %}
+        <div class="agendaTimeslot">
+            {% assign title = 'Sessions' %}
+            {% if agendaslot.title %}
+            {% assign title = agendaslot.title %}
+            {% endif %}
+
+            <div class="agenda{{ agendaslot.type}}">{{ agendaslot.start }} ➡ {{ title }} ⬅ {{ agendaslot.end }}</div>
+            {% if agendaslot.type == "session" %}
+            <div class="talks">
+                {% assign talks=agendaSpeakers[agendaslot.sessionIndex].items %}
+
+                {% for talk in talks %}
+                <div class="talkSlotCard">
+                    <div class="talkLabel">
+                        <div class="talkLabelText">
+                            <span class="talkTitle">{{ talk.title }}</span><br />
+                            presented by<br />
+                            <span class="talkSpeaker">
+                                {% for speaker in talk.speakers %}
+                                {{ speaker.name }}
+                                {% endfor %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
     <div class="seperator">&nbsp;</div>
     <div class="sectionTitle">Sponsors</div>
     {% assign sponsorsByLevel = (site.data.2020.cptsponsors | sort: 'level' | group_by: 'level') %}
