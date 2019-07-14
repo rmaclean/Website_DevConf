@@ -71,26 +71,27 @@ a {
   padding-bottom: 20px;
   display: grid;
   color: white;
-  justify-items: center;
-  align-items: center;
+  justify-content: center;
   text-align: center;
-  grid-row-gap: 30px; }
+  grid-row-gap: 30px;
+  padding-left: 10px;
+  padding-right: 10px; }
   .hero .brand {
     display: grid;
-    justify-content: center;
-    grid-template-rows: auto auto auto; }
+    justify-items: center; }
     .hero .brand img {
-      height: 100px;
-      justify-self: center; }
+      max-width: 80%;
+      max-height: 100px;
+      object-fit: contain; }
   .hero .eventbananas {
     display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: auto auto;
-    width: 100%; }
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    row-gap: 10px; }
     .hero .eventbananas .event {
       display: grid;
       grid-row-gap: 10px;
-      justify-items: center; }
+      justify-content: center; }
       .hero .eventbananas .event .location {
         font-size: 1.6rem;
         color: #fc003d;
@@ -105,7 +106,10 @@ a {
       padding: 5px; }
       .hero .mailingList input[type=submit] {
         background: #000d28;
-        color: white; }
+        color: white;
+        border-color: #7d001e;
+        border-width: 1px;
+        border-style: solid; }
         .hero .mailingList input[type=submit]:hover {
           background: #fc003d; }
     .hero .mailingList a {
@@ -209,7 +213,7 @@ a {
       align-self: stretch;
       display: grid;
       align-items: center;
-      grid-auto-flow: column; }
+      grid-template-columns: repeat(auto-fill, 200px); }
       .content .contactus .contactDetails a {
         color: #000d28; }
         .content .contactus .contactDetails a:hover {
@@ -306,7 +310,7 @@ a.button {
   width: 200px;
   display: grid;
   align-items: center;
-  justify-items: center; }
+  justify-content: center; }
   a.button:hover {
     background-color: #ff3062; }
 

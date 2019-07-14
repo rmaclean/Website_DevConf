@@ -4,14 +4,14 @@ tickets:
   jhb: https://www.google.com
   jhb_wait: https://www.google.com
   cpt_sell: false
-  jhb_sell: true
+  jhb_sell: false
 
 events:
   - location: "Cape Town"
-    date: "26 March 2020"
+    date: "2020"
     info: "/capetown"
   - location: "Johannesburg"
-    date: "28 March 2020"
+    date: "2020"
     info: "/johannesburg"
 
 sponsorLevels:
