@@ -81,7 +81,20 @@ layout: default
         <div class="sectionTitle">DevConf in the press</div>
         <div class="mediaArticles">
             {% for media in site.data.media %}
-            <a href="{{ media.link }}" class="card" style="background-image: url('/public/images/media/{{ media.logo }}');" target="_blank" rel="noopener noreferrer">
+            
+            <script type="text/javascript">
+            fetch("https://dcunfurl.sadev.workers.dev/?target={{ media.link }}").then(response => {
+                response.text().then(body => {
+                    let data = JSON.parse(body);
+                    document.getElementById("mediaBlock{{forloop.index}}").style.backgroundImage = `url(${data.icon})`;
+
+                    if (data.theme !== undefined) {
+                        document.getElementById("mediaBlock{{forloop.index}}").style.backgroundColor = data.theme
+                    }
+                })
+            });
+            </script>
+            <a href="{{ media.link }}" id="mediaBlock{{forloop.index}}" class="card" style="background-image: url('/public/images/hl3confirmed.jpg');" target="_blank" rel="noopener noreferrer">
                 <div class="title">{{ media.title }}</div>
             </a>
             {% endfor %}

@@ -168,7 +168,7 @@ a {
     align-items: end;
     background-color: #000d28;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center; }
     .content .card .title {
       padding: 5px;
@@ -188,7 +188,7 @@ a {
     align-items: end;
     background-color: #000d28;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center; }
     .content .smallerCard .title {
       padding: 5px;
