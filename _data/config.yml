@@ -8,10 +8,10 @@ tickets:
 
 events:
   - location: "Cape Town"
-    date: "2020"
+    date: "31 March 2020"
     info: "/capetown"
   - location: "Johannesburg"
-    date: "2020"
+    date: "2 April 2020"
     info: "/johannesburg"
 
 sponsorLevels:
