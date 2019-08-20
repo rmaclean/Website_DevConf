@@ -17,6 +17,8 @@ module.exports = {
   },
   output: {
     filename: 'devconf.js',
-    path: path.resolve(__dirname, 'scripts')
+    path: path.resolve(__dirname, 'scripts'),
+    libraryTarget: 'var',
+    library: 'DevConf'
   }
 };
