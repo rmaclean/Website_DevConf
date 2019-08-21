@@ -14,7 +14,7 @@ layout: default
         ticket already and need to update details OR have a access code?</a>
     {% endif %}
     <div class="sectionTitle">Agenda</div>
-    <div id="agenda"></div>
+    <div id="agenda" class="agenda"></div>
     <script>
         DevConf.loadEventSessions("6gi5ncom", document.getElementById("agenda"));
     </script>
@@ -28,8 +28,9 @@ layout: default
         <div class="subSectionTitle">{{ levelInfo.title }}</div>
         <div class="sponsors">
             {% for sponsor in level.items %}
-            <a class="smallerCard" href="{{ sponsor.link }}" style="background-image: url('/public/images/sponsors/{{ sponsor.logo }}');"
-                target="_blank" rel="noopener noreferrer">
+            <a class="smallerCard" href="{{ sponsor.link }}"
+                style="background-image: url('/public/images/sponsors/{{ sponsor.logo }}');" target="_blank"
+                rel="noopener noreferrer">
                 <div class="title">{{ sponsor.sponsor }}</div>
             </a>
             {% endfor %}
@@ -48,5 +49,22 @@ layout: default
                     target="_blank" rel="noopener noreferrer">View on Google Maps</a>
             </p>
         </div>
-    </div> 
+    </div>
 </div>
+<template id="sessionTemplate">
+    <div class="session">
+        <div class="talkLabel">
+            <div class="talkLabelText">
+                <span class="talkTitle"></span><br />
+                presented by<br />
+                <span class="talkSpeaker"></span>
+            </div>
+        </div>
+        <div class="talkImages"></div>  
+    </div>
+</template>
+<template id="breakTeamplate">
+    <div class="break">
+
+    </div>
+</template>

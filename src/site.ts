@@ -5,25 +5,67 @@ if (typeof fetch === "undefined") {
 }
 
 export function loadEventSessions(id: String, target: HTMLElement) {
+    const getTemplate = (id: string) => {
+        return ((document.getElementById(id) as HTMLTemplateElement)
+            .cloneNode(true) as HTMLTemplateElement)
+            .content;
+    }
+
+    const sessionCard = (session: Sessionize.Session, speakers: Sessionize.Speaker[], span: Number) => {
+        const content = getTemplate("sessionTemplate");
+        content.querySelector("span.talkTitle")!.textContent = session.title;
+        const sessionSpeakers = session.speakers
+            .map(speakerId => speakers.filter(s => s.id === speakerId)[0]);
+
+        //session.startsAt
+        //session.endsAt
+        //session.categoryItems
+
+        const imageHolder = content.querySelector("div.talkImages") as HTMLDivElement;
+        sessionSpeakers
+            .map(speaker => {
+                const image = document.createElement("img");
+                image.classList.add("profileImage");
+                image.src = speaker.profilePicture;
+                image.alt = `Profile picture of ${speaker.fullName}`;
+                return image;
+            })
+            .forEach(image => imageHolder.appendChild(image));
+        
+        content.querySelector("span.talkSpeaker")!.innerHTML = sessionSpeakers
+            .map(speaker => speaker.fullName)
+            .join("<br/>");
+
+        if (session.isPlenumSession) {
+            const sessionDiv = content.querySelector("div.session") as HTMLDivElement;
+            sessionDiv.classList.add("highlight");
+            sessionDiv.style.gridColumnEnd = `span ${span}`;
+        }
+
+        return content;
+    }
+
+    const breakCard = (session: Sessionize.Session, span: Number) => {
+        const content = getTemplate("breakTeamplate");
+        const rootDiv = content.querySelector("div.break")! as HTMLDivElement;
+        rootDiv.textContent = session.title;
+        rootDiv.style.gridColumnEnd = `span ${span}`;
+        return content;
+    }
+
     const parseEventData = (event: Sessionize.Event) => {
+        const rooms = event.rooms.length;
+        target.style.gridTemplateColumns = event.rooms.map(() => "auto").join(' ');
+
         event.sessions.map((session, index) => {
-            const div = document.createElement('div');
-            div.innerText = session.title;
-            if (session.isPlenumSession) {
-                div.classList.add("plenum");  
-            }
-
             if (session.isServiceSession) {
-                div.classList.add("service");
+                return breakCard(session, rooms);
             }
 
-            if (index % 2 === 0) {
-                div.classList.add("altColour");
-            }
-
-            return div;
-        }).forEach(div => {
-            target.appendChild(div);
+            return sessionCard(session, event.speakers, rooms);
+        })
+        .forEach(content => {
+            target.appendChild(document.importNode(content, true));
         });
     }
 
