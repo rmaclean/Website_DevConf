@@ -578,10 +578,10 @@ a {
   grid-column-gap: 2px;
   font-variant-caps: all-small-caps;
   font-weight: bold;
-  align-items: end;
-  background-color: #000d28; }
+  align-items: end; }
   .agenda .session, .agenda .highlight {
     cursor: pointer;
+    background-color: #e3e4e6;
     height: 150px;
     border-style: solid;
     border-width: 1px;
@@ -625,21 +625,44 @@ a {
           color: white;
           font-weight: bolder; }
   .agenda .highlight {
-    background-color: #c90031;
+    background-color: #ff3263;
     border-style: solid;
     border-width: 1px;
-    border-color: #ff4a75;
-    color: white;
+    border-color: #ffb2c4;
+    color: black;
     text-align: center;
     font-weight: bolder; }
+  .agenda .room {
+    background-color: #1ba6e3;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #8cd2f1;
+    color: black;
+    text-align: center;
+    font-weight: bolder;
+    font-weight: bold;
+    text-align: center; }
+  .agenda .timeslot {
+    background-color: #1ba6e3;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #8cd2f1;
+    color: black;
+    text-align: center;
+    font-weight: bolder;
+    font-weight: bold;
+    text-align: center;
+    height: 100%; }
   .agenda .break {
-    background-color: #000d28;
+    background-color: #1ba6e3;
     border-style: solid;
     border-width: 1px;
-    border-color: #0036a8;
-    color: white;
+    border-color: #8cd2f1;
+    color: black;
     text-align: center;
-    font-weight: bolder; }
+    font-weight: bolder;
+    font-weight: bold;
+    text-align: center; }
 
 .footer {
   background-color: #000d28;
@@ -672,3 +695,12 @@ a.smalllink {
   font-size: 0.7rem;
   color: #000d28;
   text-decoration: underline; }
+
+.popupContainer {
+  width: 800px;
+  height: 800px;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #fc003d;
+  border-radius: 5px; }

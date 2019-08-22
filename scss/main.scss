@@ -319,7 +319,6 @@ a {
     font-variant-caps: all-small-caps;
     font-weight: bold;
     align-items: end;
-    background-color: $brandblue;
 
     @mixin eventType($coreColour) {
         background-color: $coreColour;
@@ -333,10 +332,13 @@ a {
 
     .session {
         cursor: pointer;
+        background-color: rgb(227, 228, 230);
         height: 150px;
+
         @media (max-width: 1000px) {
             height: 100px;
         }
+
         border-style: solid;
         border-width: 1px;
         border-color: lighten($brandblue, 25);
@@ -393,11 +395,26 @@ a {
 
     .highlight {
         @extend .session;
-        @include eventType(darken($brandpink, 10));
+        @include eventType(rgb(255, 50, 99));
+    }
+
+    .room {
+        @include eventType(rgb(27, 166, 227));
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .timeslot {
+        @include eventType(rgb(27, 166, 227));
+        font-weight: bold;
+        text-align: center;
+        height: 100%;
     }
 
     .break {
-        @include eventType($brandblue);
+        @include eventType(rgb(27, 166, 227));
+        font-weight: bold;
+        text-align: center;
     }
 }
 
@@ -438,4 +455,14 @@ a.smalllink {
     font-size: 0.7rem;
     color: $brandblue;
     text-decoration: underline;
+}
+
+.popupContainer {
+    width: 800px;
+    height: 800px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: $brandpink;
+    border-radius: 5px;
 }

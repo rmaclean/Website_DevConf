@@ -4,25 +4,37 @@ if (typeof fetch === "undefined") {
     alert("Oh no 😢 We don't support your web browser. Please upgrade to a newer version!");
 }
 
-export function loadEventSessions(id: String, target: HTMLElement) {
+const agendaPlaceholder = document.getElementById("agenda");
+if (agendaPlaceholder) {
+    const eventId = agendaPlaceholder.getAttribute('data-event-id');
+    if (eventId) {
+        loadEventSessions(eventId, agendaPlaceholder);
+    }
+}
+
+function loadEventSessions(id: String, target: HTMLElement) {
     const getTemplate = (id: string) => {
         return ((document.getElementById(id) as HTMLTemplateElement)
             .cloneNode(true) as HTMLTemplateElement)
             .content;
     }
 
+    const roomCard = (roomName: string, column: number) => {
+        const content = getTemplate("roomCardTemplate");
+        const rootDiv = content.querySelector("div.room")! as HTMLDivElement;
+        rootDiv.textContent = roomName;
+        rootDiv.style.gridColumn = column.toString();
+        return content;
+    }
+
     const sessionCard = (session: Sessionize.Session, speakers: Sessionize.Speaker[], span: Number) => {
         const content = getTemplate("sessionTemplate");
         content.querySelector("span.talkTitle")!.textContent = session.title;
-        const sessionSpeakers = session.speakers
-            .map(speakerId => speakers.filter(s => s.id === speakerId)[0]);
-
-        //session.startsAt
-        //session.endsAt
-        //session.categoryItems
+        const link = (content.querySelector("a.modal")! as HTMLAnchorElement);
+        link.href = `#modal-window-${session.id}`;
 
         const imageHolder = content.querySelector("div.talkImages") as HTMLDivElement;
-        sessionSpeakers
+        speakers
             .map(speaker => {
                 const image = document.createElement("img");
                 image.classList.add("profileImage");
@@ -31,16 +43,39 @@ export function loadEventSessions(id: String, target: HTMLElement) {
                 return image;
             })
             .forEach(image => imageHolder.appendChild(image));
-        
-        content.querySelector("span.talkSpeaker")!.innerHTML = sessionSpeakers
+
+        content.querySelector("span.talkSpeaker")!.innerHTML = speakers
             .map(speaker => speaker.fullName)
             .join("<br/>");
 
+        const sessionDiv = content.querySelector("div.session") as HTMLDivElement;
         if (session.isPlenumSession) {
-            const sessionDiv = content.querySelector("div.session") as HTMLDivElement;
             sessionDiv.classList.add("highlight");
-            sessionDiv.style.gridColumnEnd = `span ${span}`;
+            link.style.gridColumnEnd = `span ${span}`;
         }
+
+        return content;
+    }
+
+    const sessionPopup = (session: Sessionize.Session, speakers: Sessionize.Speaker[]) => {
+        const content = getTemplate("sessionDetail");
+        content.querySelector("aside.popupContainer")!.id = `modal-window-${session.id}`;
+        //content.querySelector("span.talkTitle")!.textContent = session.title;
+
+        // const imageHolder = content.querySelector("div.talkImages") as HTMLDivElement;
+        // speakers
+        //     .map(speaker => {
+        //         const image = document.createElement("img");
+        //         image.classList.add("profileImage");
+        //         image.src = speaker.profilePicture;
+        //         image.alt = `Profile picture of ${speaker.fullName}`;
+        //         return image;
+        //     })
+        //     .forEach(image => imageHolder.appendChild(image));
+
+        // content.querySelector("span.talkSpeaker")!.innerHTML = speakers
+        //     .map(speaker => speaker.fullName)
+        //     .join("<br/>");
 
         return content;
     }
@@ -53,20 +88,49 @@ export function loadEventSessions(id: String, target: HTMLElement) {
         return content;
     }
 
+    const timeslotCard = (session: Sessionize.Session) => {
+        const content = getTemplate("timeslotCardTemplate");
+        const rootDiv = content.querySelector("div.timeslot")! as HTMLDivElement;
+        rootDiv.textContent = `${new Date(session.startsAt).toLocaleTimeString()} - ${new Date(session.endsAt).toLocaleTimeString()}`;
+        return content;
+    }
+
     const parseEventData = (event: Sessionize.Event) => {
         const rooms = event.rooms.length;
-        target.style.gridTemplateColumns = event.rooms.map(() => "auto").join(' ');
+        target.style.gridTemplateColumns = "180px " + "auto ".repeat(rooms);
 
-        event.sessions.map((session, index) => {
-            if (session.isServiceSession) {
-                return breakCard(session, rooms);
+        event.rooms
+            .forEach((room, i) => {
+                target.appendChild(document.importNode(roomCard(room.name, i + 2), true))
+            });
+
+        let lastTimeChange = 0;
+        const popups = Array<DocumentFragment>();
+        event.sessions.reduce((accumalator, session) => {
+            const sessionStart = new Date(session.startsAt)
+            if (sessionStart.getTime() !== lastTimeChange) {
+                lastTimeChange = sessionStart.getTime();
+                accumalator.push(document.importNode(timeslotCard(session), true));
             }
 
-            return sessionCard(session, event.speakers, rooms);
+            if (session.isServiceSession) {
+                accumalator.push(breakCard(session, rooms))
+                return accumalator;
+            }
+
+            const sessionSpeakers = session.speakers
+                .map(speakerId => event.speakers.filter(s => s.id === speakerId)[0]);
+            popups.push(sessionPopup(session, sessionSpeakers));
+            accumalator.push(sessionCard(session, sessionSpeakers, rooms));
+            return accumalator;
+        }, Array<DocumentFragment>())
+            .forEach(content => {
+                target.appendChild(document.importNode(content, true));
+            });
+
+        popups.forEach(popup => {
+            document.lastElementChild!.append(popup);
         })
-        .forEach(content => {
-            target.appendChild(document.importNode(content, true));
-        });
     }
 
     const loadStoredData = () => {
@@ -75,7 +139,7 @@ export function loadEventSessions(id: String, target: HTMLElement) {
             const event = JSON.parse(sessionData) as Sessionize.Event;
             parseEventData(event);
         } else {
-            // TODO : wat
+            alert('Oh no! Something has gone horribly wrong. Please reload your browser and try again.')
         }
     }
 
