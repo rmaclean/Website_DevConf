@@ -7,12 +7,14 @@ if (typeof fetch === "undefined") {
 const agendaPlaceholder = document.getElementById("agenda");
 if (agendaPlaceholder) {
     const eventId = agendaPlaceholder.getAttribute('data-event-id');
-    if (eventId) {
-        loadEventSessions(eventId, agendaPlaceholder);
+    const eventDate = agendaPlaceholder.getAttribute('data-event-date');
+
+    if (eventId && eventDate) {
+        loadEventSessions(eventId, agendaPlaceholder, new Date(eventDate));
     }
 }
 
-function loadEventSessions(id: String, target: HTMLElement) {
+function loadEventSessions(id: String, target: HTMLElement, eventDate: Date) {
     const getTemplate = (id: string) => {
         return ((document.getElementById(id) as HTMLTemplateElement)
             .cloneNode(true) as HTMLTemplateElement)
@@ -46,7 +48,7 @@ function loadEventSessions(id: String, target: HTMLElement) {
 
         content.querySelector("span.talkSpeaker")!.innerHTML = speakers
             .map(speaker => speaker.fullName)
-            .join("<br/>");
+            .join(" &amp; ");
 
         const sessionDiv = content.querySelector("div.session") as HTMLDivElement;
         if (session.isPlenumSession) {
@@ -88,6 +90,10 @@ function loadEventSessions(id: String, target: HTMLElement) {
         return content;
     }
 
+    const tbaCard = () => {
+        return getTemplate("tbaCardTemplate");
+    }
+
     const timeslotCard = (session: Sessionize.Session) => {
         const content = getTemplate("timeslotCardTemplate");
         const rootDiv = content.querySelector("div.timeslot")! as HTMLDivElement;
@@ -106,15 +112,22 @@ function loadEventSessions(id: String, target: HTMLElement) {
 
         let lastTimeChange = 0;
         const popups = Array<DocumentFragment>();
-        event.sessions.reduce((accumalator, session) => {
+        event.sessions
+            .filter(session => new Date(session.startsAt).getDate() === eventDate.getDate())
+            .reduce((accumalator, session) => {
             const sessionStart = new Date(session.startsAt)
             if (sessionStart.getTime() !== lastTimeChange) {
                 lastTimeChange = sessionStart.getTime();
                 accumalator.push(document.importNode(timeslotCard(session), true));
             }
 
-            if (session.isServiceSession) {
+            if (session.isServiceSession && session.title !== "TBA") {
                 accumalator.push(breakCard(session, rooms))
+                return accumalator;
+            }
+
+            if (session.title === "TBA") {
+                accumalator.push(tbaCard());
                 return accumalator;
             }
 
